@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name — Links</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --night: #080b1f;
+            --night-deep: #04050f;
+            --panel: #10152f;
+            --star: #ffe9a8;
+            --star-bright: #fff8e3;
+            --nebula: #8b7fe8;
+            --mist: #8b93b8;
+            --line: rgba(255, 233, 168, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            background: var(--night);
+            color: var(--star-bright);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        body {
+            position: relative;
+            overflow-x: hidden;
+            background:
+                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(139, 127, 232, 0.25), transparent 60%),
+                var(--night);
+        }
+
+        /* ---------- starfield ---------- */
+        .sky {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .sky span {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--star-bright);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle 4s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.15;
+            }
+
+            50% {
+                opacity: 0.9;
+            }
+        }
+
+        .wrap {
+            position: relative;
+            z-index: 1;
+            max-width: 460px;
+            margin: 0 auto;
+            padding: 64px 24px 90px;
+        }
+
+        /* ---------- header ---------- */
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .halo {
+            position: relative;
+            width: 104px;
+            height: 104px;
+            margin: 0 auto 24px;
+        }
+
+        .halo::before {
+            content: "";
+            position: absolute;
+            inset: -14px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 233, 168, 0.35), transparent 70%);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                opacity: 0.6;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.08);
+            }
+        }
+
+        .avatar {
+            position: relative;
+            width: 104px;
+            height: 104px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            border: 2px solid var(--star);
+            background: var(--panel);
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--nebula);
+            margin: 0 0 10px;
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: 44px;
+            letter-spacing: 0.01em;
+            margin: 0 0 12px;
+            color: var(--star-bright);
+        }
+
+        .tagline {
+            font-size: 13px;
+            color: var(--mist);
+            max-width: 34ch;
+            margin: 0 auto;
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+        }
+
+        /* ---------- constellation track ---------- */
+        .chart {
+            position: relative;
+            padding-left: 46px;
+        }
+
+        .chart::before {
+            content: "";
+            position: absolute;
+            left: 14px;
+            top: 8px;
+            bottom: 8px;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--line) 8%, var(--line) 92%, transparent);
+            transform-origin: top;
+            animation: draw-line 1.6s cubic-bezier(.4, 0, .2, 1) both;
+        }
+
+        @keyframes draw-line {
+            from {
+                transform: scaleY(0);
+            }
+
+            to {
+                transform: scaleY(1);
+            }
+        }
+
+        .comet {
+            position: absolute;
+            left: 11px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--star-bright);
+            box-shadow: 0 0 8px 2px var(--star), 0 0 20px 6px rgba(255, 233, 168, 0.5);
+            animation: travel 3.2s cubic-bezier(.65, 0, .35, 1) 1.5s infinite;
+        }
+
+        @keyframes travel {
+            0% {
+                top: 0%;
+                opacity: 0;
+            }
+
+            6% {
+                opacity: 1;
+            }
+
+            92% {
+                opacity: 1;
+            }
+
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        .star-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .star-item {
+            position: relative;
+        }
+
+        .star-item .node {
+            position: absolute;
+            left: -32px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--night);
+            border: 1.5px solid var(--star);
+            box-shadow: 0 0 0 4px var(--night), 0 0 10px 1px rgba(255, 233, 168, 0.4);
+        }
+
+        .star-item a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--star-bright);
+            background: var(--panel);
+            border: 1px solid rgba(255, 233, 168, 0.18);
+            border-radius: 10px;
+            padding: 16px 18px;
+            transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+        }
+
+        .star-item a:hover,
+        .star-item a:focus-visible {
+            border-color: var(--star);
+            box-shadow: 0 0 0 1px rgba(255, 233, 168, 0.25), 0 8px 24px -8px rgba(139, 127, 232, 0.55);
+            transform: translateX(3px);
+            outline: none;
+        }
+
+        .designation {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: var(--nebula);
+            min-width: 22px;
+        }
+
+        .icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 1.5px solid var(--star);
+            background: var(--night);
+        }
+
+        .star-item .text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .star-item .title {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .star-item .sub {
+            display: block;
+            font-size: 11px;
+            color: var(--mist);
+            letter-spacing: 0.03em;
+            margin-top: 2px;
+        }
+
+        .star-item .arrow {
+            color: var(--mist);
+            font-size: 14px;
+        }
+
+        /* ---------- footer ---------- */
+        footer {
+            text-align: center;
+            margin-top: 70px;
+        }
+
+        footer .coords {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: var(--mist);
+            text-transform: uppercase;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .sky span,
+            .halo::before,
+            .chart::before,
+            .comet {
+                animation: none !important;
+            }
+
+            .chart::before {
+                transform: scaleY(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sky" id="sky"></div>
+
+    <div class="wrap">
+
+        <header>
+            <div class="halo">
+                <!-- Swap this image for your own avatar -->
+                <img class="avatar" src="profile.png" alt="Your avatar">
+            </div>
+            <p class="eyebrow">Private. Premium. Personal.</p>
+            <h1>Lumen</h1>
+            <p class="tagline">
+                A next-generation adult entertainment platform built for creators and viewers with a focus on quality,
+                privacy, and seamless experiences.
+            </p>
+
+        </header>
+
+        <div class="chart">
+            <div class="comet"></div>
+            <ul class="star-list">
+
+                <!-- Duplicate this .star-item block for each link -->
+                <li class="star-item">
+                    <span class="node"></span>
+                    <a href="https://t.me/+bq9uQXrlB7Y0MTE1" target="_blank" rel="noopener noreferrer">
+                        <img class="icon"
+                            src="https://ugc.production.linktr.ee/daa48581-f8ce-4067-9ffa-f6d77266ee66_cf81e754-a165-4f5c-bd4b-87700f51ad55.jpeg?io=true&size=thumbnail-stack_v1_0z"
+                            alt="Instagram">
+                        <span class="text">
+                            <span class="title">ᴅᴀɪʟʏ ꜰʀᴇᴇ ᴠɪᴅᴇᴏꜱ ᴄʜᴀɴɴᴇʟ</span>
+                        </span>
+                        <span class="arrow">↗</span>
+                    </a>
+                </li>
+
+                <li class="star-item">
+                    <span class="node"></span>
+                    <a href="https://t.me/MstTammanabot" target="_blank" rel="noopener noreferrer">
+                        <img class="icon"
+                            src="eranmon.png"
+                            alt="Telegram Bot">
+                        <span class="text">
+                            <span class="title">ᴇᴀʀɴ ᴡᴇᴇᴋʟʏ <strong>₹5,000</strong></span>
+                        </span>
+                        <span class="arrow">↗</span>
+                    </a>
+                </li>
+
+                <li class="star-item">
+                    <span class="node"></span>
+                    <a href="https://lumen-lovat-five.vercel.app/" target="_blank" rel="noopener noreferrer">
+                        <img class="icon" src="lumenlogo.png" alt="Website">
+                        <span class="text">
+                            <span class="title">All Video</span>
+                        </span>
+                        <span class="arrow">↗</span>
+                    </a>
+                </li>
+
+                <li class="star-item">
+                    <span class="node"></span>
+                    <a href="https://www.effectivecpmnetwork.com/d3jk6rggng?key=b28433beacbba9e5a6258ca35c168fe2">
+                        <img class="icon" src="video_folder.svg" alt="Only video">
+                        <span class="text">
+                            <span class="title">Only video</span>
+                        </span>
+                        <span class="arrow">↗</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        <footer>
+            <p class="coords">N 39° · W 12° — Charted 2026</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // Scatter background stars
+        const sky = document.getElementById('sky');
+        const count = 70;
+        for (let i = 0; i < count; i++) {
+            const s = document.createElement('span');
+            s.style.left = Math.random() * 100 + '%';
+            s.style.top = Math.random() * 100 + '%';
+            const size = Math.random() * 1.6 + 0.6;
+            s.style.width = size + 'px';
+            s.style.height = size + 'px';
+            s.style.animationDelay = (Math.random() * 4) + 's';
+            s.style.animationDuration = (3 + Math.random() * 3) + 's';
+            sky.appendChild(s);
+        }
+    </script>
+
+</body>
+
+</html>
